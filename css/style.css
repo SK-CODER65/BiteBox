@@ -1817,10 +1817,10 @@ button:hover {
 }
 
 cart-item img {
-    width: 90px;
-    height: 62px;
+    width: 60px;
+    height: 60px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 6px;
 }
 
 .cart-item h3 {
