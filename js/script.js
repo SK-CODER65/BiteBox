@@ -249,6 +249,38 @@ function decreaseQuantity(index) {
     updateOrderSummary();
 }
 
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    localStorage.setItem("biteboxCart", JSON.stringify(cart));
+
+    renderCart();
+    updateOrderSummary();
+};
+
+function clearCart() {
+    cart = [];
+    localStorage.removeItem("biteboxCart");
+    renderCart();
+    updateOrderSummary();
+};
+
+let clearCartButton =
+    document.getElementById("clear-cart");
+
+if (clearCartButton) {
+
+    clearCartButton.addEventListener(
+        "click",
+        function () {
+
+            clearCart();
+
+        }
+    );
+
+}
+
+
 if(cartBody){
     cartBody.addEventListener("click", function (event) {
         let button = event.target.closest("button");
@@ -272,23 +304,73 @@ if(cartBody){
         if (button.classList.contains("decrease")) {
             decreaseQuantity(index);
         }
+
+        let link = event.target.closest("a");
+    if (link && link.classList.contains("remove-item")) {
+        event.preventDefault();
+        let index = parseInt(link.dataset.index);
+        removeFromCart(index);
+    }
     });
-}
-
-function removeFromCart(index) {
-    cart.splice(index, 1);
-    localStorage.setItem("biteboxCart", JSON.stringify(cart));
-
-    renderCart();
-    updateOrderSummary();
-}
-
-function clearCart() {
-    cart = [];
-    localStorage.removeItem("biteboxCart");
-    renderCart();
-    updateOrderSummary();
 }
 
 renderCart();
 updateOrderSummary();
+
+
+let menuCards = document.querySelectorAll("#menu-items article");
+let searchInput = document.querySelector("#menu-search");
+let searchButton = document.querySelector("#search-button");
+
+function searchMenu(searchText) {
+    let searchValue =  searchText.trim().toLowerCase();
+
+    menuCards.forEach(function(card) {
+        let foodName = card.querySelector("h3").textContent.trim().toLowerCase();
+
+        if (foodName.includes(searchValue)) {
+            card.style.display = "";
+        }
+        else {
+            card.style.display = "none";
+        }
+    });
+
+}
+
+if(searchButton) {
+    searchButton.addEventListener("click", function() {
+        searchMenu(searchInput.value);
+    });
+};
+
+let categoryCards = document.querySelectorAll("#categories article");
+
+function filterMenu(category) {
+
+    menuCards.forEach(function(card) {
+        let cardCategory = card.dataset.category.toLowerCase();
+
+        if (cardCategory === category) {
+            card.style.display = "";
+        }
+        else {
+            card.style.display = "none";
+        }
+    });
+
+};
+
+categoryCards.forEach(
+    function(card) {
+
+        card.addEventListener("click",function() {
+                let category = card.querySelector("h3")
+                        .textContent
+                        .trim()
+                        .toLowerCase();
+                filterMenu(category);
+            }
+        );
+    }
+);
