@@ -23,16 +23,24 @@
         <nav>
 
             <a href="./index.html" class="active">Home</a>
-            |
+            
             <a href="./menu.html">Menu</a>
-            |
+            
             <a href="./about.html">About</a>
-            |
+            
             <a href="./contact.html">Contact</a>
 
             <a href="cart.html">
-                <img src="/assets/icons/shopping-cart.png" alt="Cart Icon" width="22" height="22">
+                <span class="cart-wrapper">
+                    <img src="/assets/icons/shopping-cart.png" alt="Cart Icon" width="22" height="22">
+                    <span id="cart-count">0</span>
+                </span>
+
             </a>
+            <button type="button" id="theme-toggle" class="theme-toggle">
+                <span class="theme-icon">☀</span>
+                <span class="theme-text"> DAY MODE</span>
+            </button>
         </nav>
     </header>
     <main>
@@ -44,7 +52,7 @@
             </p>
             <div class="hero-buttons">
                 <a href="menu.html" class="order-btn">Order Now</a>
-                |
+                
                 <a href="menu.html" class="menu-btn">Explore Menu</a>
             </div>
         </section>
